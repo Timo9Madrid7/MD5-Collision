@@ -630,7 +630,7 @@ public class MD5Collision {
 			0x1C000067,0x1C000070,0x1C000071,0x1C000072,0x1C000073,0x1C000074,0x1C000075,0x1C000076,
 			0x1C000077
 			};
-//	maskQ9
+//	maskQ9 for the first block
 	private final int maskQ9[] = {
 			0x00000000,0x00200000,0x00400000,0x00600000,
 			0x00800000,0x00A00000,0x00C00000,0x00E00000
@@ -654,7 +654,43 @@ public class MD5Collision {
 			0x14000000,0x14000000,0x14000002,0x14000002,0x14000000,0x14000000,0x14000002,0x14000002,
 			0x16000000,0x16000000,0x16000002,0x16000002,0x16000000,0x16000000,0x16000002,0x16000002
 			};
-
+//	maskQ9 for the second block 
+	private final int maskQ9_2[] = {
+			0x00000000,0x00000004,0x00000008,0x0000000C,0x00000010,0x00000014,0x00000018,0x0000001C,
+			0x00000400,0x00000404,0x00000408,0x0000040C,0x00000410,0x00000414,0x00000418,0x0000041C,
+			0x00040000,0x00040004,0x00040008,0x0004000C,0x00040010,0x00040014,0x00040018,0x0004001C,
+			0x00040400,0x00040404,0x00040408,0x0004040C,0x00040410,0x00040414,0x00040418,0x0004041C,
+			0x00100000,0x00100004,0x00100008,0x0010000C,0x00100010,0x00100014,0x00100018,0x0010001C,
+			0x00100400,0x00100404,0x00100408,0x0010040C,0x00100410,0x00100414,0x00100418,0x0010041C,
+			0x00140000,0x00140004,0x00140008,0x0014000C,0x00140010,0x00140014,0x00140018,0x0014001C,
+			0x00140400,0x00140404,0x00140408,0x0014040C,0x00140410,0x00140414,0x00140418,0x0014041C,
+			0x00200000,0x00200004,0x00200008,0x0020000C,0x00200010,0x00200014,0x00200018,0x0020001C,
+			0x00200400,0x00200404,0x00200408,0x0020040C,0x00200410,0x00200414,0x00200418,0x0020041C,
+			0x00240000,0x00240004,0x00240008,0x0024000C,0x00240010,0x00240014,0x00240018,0x0024001C,
+			0x00240400,0x00240404,0x00240408,0x0024040C,0x00240410,0x00240414,0x00240418,0x0024041C,
+			0x00300000,0x00300004,0x00300008,0x0030000C,0x00300010,0x00300014,0x00300018,0x0030001C,
+			0x00300400,0x00300404,0x00300408,0x0030040C,0x00300410,0x00300414,0x00300418,0x0030041C,
+			0x00340000,0x00340004,0x00340008,0x0034000C,0x00340010,0x00340014,0x00340018,0x0034001C,
+			0x00340400,0x00340404,0x00340408,0x0034040C,0x00340410,0x00340414,0x00340418,0x0034041C,
+			0x00400000,0x00400004,0x00400008,0x0040000C,0x00400010,0x00400014,0x00400018,0x0040001C,
+			0x00400400,0x00400404,0x00400408,0x0040040C,0x00400410,0x00400414,0x00400418,0x0040041C,
+			0x00440000,0x00440004,0x00440008,0x0044000C,0x00440010,0x00440014,0x00440018,0x0044001C,
+			0x00440400,0x00440404,0x00440408,0x0044040C,0x00440410,0x00440414,0x00440418,0x0044041C,
+			0x00500000,0x00500004,0x00500008,0x0050000C,0x00500010,0x00500014,0x00500018,0x0050001C,
+			0x00500400,0x00500404,0x00500408,0x0050040C,0x00500410,0x00500414,0x00500418,0x0050041C,
+			0x00540000,0x00540004,0x00540008,0x0054000C,0x00540010,0x00540014,0x00540018,0x0054001C,
+			0x00540400,0x00540404,0x00540408,0x0054040C,0x00540410,0x00540414,0x00540418,0x0054041C,
+			0x00600000,0x00600004,0x00600008,0x0060000C,0x00600010,0x00600014,0x00600018,0x0060001C,
+			0x00600400,0x00600404,0x00600408,0x0060040C,0x00600410,0x00600414,0x00600418,0x0060041C,
+			0x00640000,0x00640004,0x00640008,0x0064000C,0x00640010,0x00640014,0x00640018,0x0064001C,
+			0x00640400,0x00640404,0x00640408,0x0064040C,0x00640410,0x00640414,0x00640418,0x0064041C,
+			0x00700000,0x00700004,0x00700008,0x0070000C,0x00700010,0x00700014,0x00700018,0x0070001C,
+			0x00700400,0x00700404,0x00700408,0x0070040C,0x00700410,0x00700414,0x00700418,0x0070041C,
+			0x00740000,0x00740004,0x00740008,0x0074000C,0x00740010,0x00740014,0x00740018,0x0074001C,
+			0x00740400,0x00740404,0x00740408,0x0074040C,0x00740410,0x00740414,0x00740418,0x0074041C
+			};
+	
+	
 //	Left or Right Rotation Functions
 	private int RL(int a, int s) {
 		return (a << s) | (a >>> (32-s));
@@ -674,7 +710,6 @@ public class MD5Collision {
 		return X;
 	}
 	
-
 //	32-bit padding
 	private String bit32Pad(int b) {
 		String bStr = Integer.toBinaryString(b);
@@ -758,15 +793,16 @@ public class MD5Collision {
 		int AA0, BB0, CC0, DD0, AA1, BB1, CC1, DD1;
 	
 		System.out.println("Block 1 Started");
+		
+//		Q[0] is the initial IV; Q[2] is set to the default value for first round
+		Q[0] = QM0;
+		Q[2] = -858993460;
 		for(;;) {
-//			Q[0] is the initial IV
-			Q[0] = QM0;
 			
 //	 		Q[1]  = .... .... .... .... .... .... .... .... 
 			Q[1] = prg();
 			
 //			Q[2] will be generated from x[1] using Q[14..17]
-			Q[2] = -858993460;
 			
 //			Q[3]  = .... .... .vvv 0vvv vvvv 0vvv v0.. .... 
 			Q[3]  = prg() & 0xfff7f7bf;
@@ -815,15 +851,16 @@ public class MD5Collision {
 			Q[17] = (prg() & 0x3ffd7ff7) + 0x40000000 + (Q[16] & 0x80008008);
 			
 //			reversed-engineering to get the message
-			x[ 0] = RR(Q[ 1] - QM0  ,  7) - F(QM0  , QM1  , QM2  ) - QM3   - 0xd76aa478; 
+			x[ 0] = RR(Q[ 1] - QM0  ,  7) - F(QM0  , QM1  , QM2  ) - QM3   - 0xd76aa478;
 		    x[ 1] = RR(Q[17] - Q[16],  5) - G(Q[16], Q[15], Q[14]) - Q[13] - 0xf61e2562;
 		    x[ 4] = RR(Q[ 5] - Q[ 4],  7) - F(Q[ 4], Q[ 3], Q[ 2]) - Q[ 1] - 0xf57c0faf;
 		    x[ 5] = RR(Q[ 6] - Q[ 5], 12) - F(Q[ 5], Q[ 4], Q[ 3]) - Q[ 2] - 0x4787c62a;
-		    x[ 6] = RR(Q[ 7] - Q[ 6], 17) - F(Q[ 6], Q[ 5], Q[ 4]) - Q[ 3] - 0xa8304613; 
+		    x[ 6] = RR(Q[ 7] - Q[ 6], 17) - F(Q[ 6], Q[ 5], Q[ 4]) - Q[ 3] - 0xa8304613;
 		    x[10] = RR(Q[11] - Q[10], 17) - F(Q[10], Q[ 9], Q[ 8]) - Q[ 7] - 0xffff5bb1; 
 		    x[11] = RR(Q[12] - Q[11], 22) - F(Q[11], Q[10], Q[ 9]) - Q[ 8] - 0x895cd7be; 
 		    x[15] = RR(Q[16] - Q[15], 22) - F(Q[15], Q[14], Q[13]) - Q[12] - 0x49b40821;
-			
+		    
+		    
 		    /*If we fulfill conditions on Q[1...16] such that we choose these variables, 
 		     *then we have no freedom in the message x[0...15]. 
 		     *Thus the values Q[17...64] and IHV[0...3] are completely determined and their sufficient conditions take place only randomly. 
@@ -855,7 +892,6 @@ public class MD5Collision {
 		    if ( getbit(Q[20],32) != getbit(Q[15],32) ) continue;
 		    
 		    Q[21] = Q[20] + RL(G(Q[20],Q[19],Q[18]) + Q[17] + x[5] + 0xd62f105d, 5);
-		    
 //		    Q[21] = ^... .... .... ..^. .... .... .... ....
 		    if ( ((Q[21] ^ Q[20]) & 0x80020000) != 0 ) continue;
 		    
@@ -875,6 +911,7 @@ public class MD5Collision {
 //		    Q[24] = 1... .... .... .... .... .... .... ....
 		    if ( getbit(Q[24],32) != 1) continue;
 		    
+		    
 		    tmp_x1  = x[1];
 		    tmp_x4  = x[4];
 		    tmp_x15 = x[15];
@@ -887,7 +924,7 @@ public class MD5Collision {
 		    tmp_q14 = Q[14];
 		    tmp_q20 = Q[20];
 		    tmp_q21 = Q[21];
-		    
+
 //		    System.out.println("1. Tunnel Q10 Starts");
 		    ///////////////////////////////////////////////////////////////
 		    ///                       Tunnel Q10                         //
@@ -1183,11 +1220,12 @@ public class MD5Collision {
 		} // block 1 for
 	} // block 1
 	
+	
 	private int block2() {
 		int QM3 = A0, QM0 = B0, QM1 = C0, QM2 = D0;
 		int[] Q = new int[65];
 		int sigma_Q17, sigma_Q19, sigma_Q20, sigma_Q23, sigma_Q35, sigma_Q62;
-		int i, itr_q16, itr_q1q2, itr_q9, itr_q4;
+		int itr_q16, itr_q1q2, itr_q9, itr_q4;
 		int tmp_q1, tmp_q2, tmp_q4, tmp_q9;
 		int Q1_fix, Q2_fix, mask_Q1Q2, Q1Q2_strength;
 		int I = QM0 & 0x80000000, not_I = (~QM0) & 0x80000000;
@@ -1239,7 +1277,7 @@ public class MD5Collision {
 			
 			mask_Q1Q2 = (~(QM0 ^ QM1)) & 0x71de77c1 ;
 			Q1Q2_strength = 0;
-			for (i=1; i<=32; i++) Q1Q2_strength += getbit(mask_Q1Q2, i);
+			for (int i = 1; i < 32; i++) Q1Q2_strength += getbit(mask_Q1Q2, i);
 			
 			Q1_fix = Q[1] & ~mask_Q1Q2;
 		    Q2_fix = Q[2] & ~mask_Q1Q2;
@@ -1278,6 +1316,7 @@ public class MD5Collision {
 		        if ( (Q[17] & 0x80028008) != (Q[16] & 0x80028008) ) continue;
 		        
 		        Q[18] = Q[17] + RL(G(Q[17], Q[16], Q[15]) + Q[14] + xx[6] + 0xc040b340, 9);
+//		        Q[18] =  ^.^.  ....  ....  ..1.  ....  ....  ....  ....
 		        if (getbit(Q[18],18) != 1) continue;
 		        if ( (Q[18] & 0xa0000000) != (Q[17] & 0xa0000000) ) continue;
 		        
@@ -1363,8 +1402,8 @@ public class MD5Collision {
 		                ///////////////////////////////////////////////////////////////
 		                ///                       Tunnel Q9                          //
 		                ///////////////////////////////////////////////////////////////
-		                for (itr_q9 = 0; itr_q9 < 8; itr_q9++) {
-		                	Q[9] = tmp_q9 ^ maskQ9[itr_q9];
+		                for (itr_q9 = 0; itr_q9 < 256; itr_q9++) {
+		                	Q[9] = tmp_q9 ^ maskQ9_2[itr_q9];
 		                	
 		                    xx[ 8] = RR(Q[ 9] - Q[ 8],  7) - F(Q[ 8], Q[ 7], Q[ 6]) - Q[5] - 0x698098d8;   
 		                    xx[ 9] = RR(Q[10] - Q[ 9], 12) - F(Q[ 9], Q[ 8], Q[ 7]) - Q[6] - 0x8b44f7af;   
@@ -1401,6 +1440,7 @@ public class MD5Collision {
 		                    Q[47] = Q[46] + RL(H(Q[46], Q[45], Q[44]) + Q[43] + xx[15] + 0x1fa27cf8, 16);
 		                    Q[48] = Q[47] + RL(H(Q[47], Q[46], Q[45]) + Q[44] + xx[ 2] + 0xc4ac5665, 23); 
 		                    
+		                    
 //		                    Last sufficient conditions
 		                    if ( getbit(Q[48],32) != getbit(Q[46],32) ) continue;
 		                    
@@ -1414,8 +1454,7 @@ public class MD5Collision {
 		                    if ( getbit(Q[51], 32) != getbit(Q[49],32) ) continue;
 		                    
 		                    Q[52] = Q[51] + RL( I(Q[51],Q[50],Q[49]) + Q[48] + xx[5] + 0xfc93a039, 21);  
-		                    if( getbit(Q[52], 32) != getbit(Q[50],32) ) 
-		                        continue;
+		                    if( getbit(Q[52], 32) != getbit(Q[50],32) ) continue;
 		                      
 		                    Q[53] = Q[52] + RL( I(Q[52],Q[51],Q[50]) + Q[49]  + xx[12] + 0x655b59c3, 6); 
 		                    if ( getbit(Q[53], 32) != getbit(Q[51],32) ) continue;
@@ -1447,24 +1486,24 @@ public class MD5Collision {
 		                    if ( getbit(Q[61], 32) != getbit(Q[59],32) ) continue;
 		                    
 //		                    Extra conditions: ¦²62,16 ~ ¦²62,22 not all 0 
-		                    sigma_Q62 = I(Q[61],Q[60],Q[59]) + Q[58] + x[11] + 0xbd3af235;
+		                    sigma_Q62 = I(Q[61],Q[60],Q[59]) + Q[58] + xx[11] + 0xbd3af235;
 		                    if ( (sigma_Q62 & 0x003f8000) == 0) continue;
 		                    
 		                    Q[62] = Q[61] + RL(sigma_Q62 , 10);
 		                    if ( getbit(Q[62], 26) != 1 ) continue;
 		                    if ( getbit(Q[62], 32) != getbit(Q[60],32) ) continue;
 
-		                    Q[63] = Q[62] + RL( I(Q[62],Q[61],Q[60]) + Q[59] + x[2] + 0x2ad7d2bb, 15);    
+		                    Q[63] = Q[62] + RL( I(Q[62],Q[61],Q[60]) + Q[59] + xx[2] + 0x2ad7d2bb, 15);    
 		                    if ( getbit(Q[63], 26) != 1 ) continue;
 		                    if ( getbit(Q[63], 32) != getbit(Q[61],32) ) continue;
 		             
-		                    Q[64] = Q[63] + RL( I(Q[63],Q[62],Q[61]) + Q[60] + x[9] + 0xeb86d391, 21);    
+		                    Q[64] = Q[63] + RL( I(Q[63],Q[62],Q[61]) + Q[60] + xx[9] + 0xeb86d391, 21);    
 		                    if ( getbit(Q[64], 26) != 1 ) continue;
 		                    
 		                    AA0 = A0 + Q[61]; BB0 = B0 + Q[64];
 		                    CC0 = C0 + Q[63]; DD0 = D0 + Q[62];
 		                    
-		                    for ( i=0; i<16; i++ ) Hxx[i] = xx[i];
+		                    for (int i=0; i < 16; i++ ) Hxx[i] = xx[i];
 		                    Hxx[ 4] = xx[ 4] - 0x80000000;
 		                    Hxx[11] = xx[11] - 0x00008000; 
 		                    Hxx[14] = xx[14] - 0x80000000;
@@ -1493,16 +1532,11 @@ public class MD5Collision {
 	} // block 2
 	
 	
-	
-	
 	public static void main(String[] args) {
 		
 		MD5Collision test = new MD5Collision();
-//		Scanner scanner = new Scanner(System.in);
-//		System.out.print("Input the random seed: ");
-//		test.X = scanner.nextInt();
 		
-		test.X = 1234;
+		test.X = 0;
 		
 		long blockStart = System.currentTimeMillis();
 		test.block1();
@@ -1513,11 +1547,7 @@ public class MD5Collision {
 		test.block2();
 		blockEnd = System.currentTimeMillis();		
 		System.out.println("Time for the second block:" + (blockEnd-blockStart)/1000 + "sec");
-		
-		
-		
+
 	}
 	
-	
-
 }
