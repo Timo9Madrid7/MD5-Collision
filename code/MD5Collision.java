@@ -1,5 +1,3 @@
-package week2;
-import java.util.*;
 
 public class MD5Collision {
 //	Initial IV[0] IV[-1] IV[-2] IV[-3]
@@ -1201,7 +1199,7 @@ public class MD5Collision {
 									AA1 = IVo[0]; BB1 = IVo[1]; CC1 = IVo[2]; DD1 = IVo[3];
 									
 //									To verify the differential path
-									System.out.println("verifying...");
+//									System.out.println("verifying...");
 									if (((AA1-AA0) != 0x80000000) || ((BB1-BB0) != 0x82000000) || 
 										((CC1-CC0) != 0x82000000) || ((DD1-DD0) != 0x82000000)) continue;								
 									
@@ -1508,7 +1506,7 @@ public class MD5Collision {
 		                    Hxx[11] = xx[11] - 0x00008000; 
 		                    Hxx[14] = xx[14] - 0x80000000;
 		                    
-		                    System.out.println("verifying...");
+//		                    System.out.println("verifying...");
 		                    
 		                    int[] IVi = {A1, B1, C1, D1};
 		                    int[] IVo = oneBlockMD5(Hxx, IVi);
@@ -1531,23 +1529,58 @@ public class MD5Collision {
 		} // block 2 for
 	} // block 2
 	
+	private static String toHex(int a) {
+		String str = Integer.toHexString(a);
+		while(str.length() < 8) {
+			str = "0" + str;
+		}
+		return str;
+	}
 	
 	public static void main(String[] args) {
 		
 		MD5Collision test = new MD5Collision();
 		
-		test.X = 0;
+		test.X = 1234;
 		
 		long blockStart = System.currentTimeMillis();
 		test.block1();
-		long blockEnd = System.currentTimeMillis();		
-		System.out.println("Time for the first block:" + (blockEnd-blockStart)/1000 + "sec");
+		long blockEnd = System.currentTimeMillis();
+		long Timer1 = blockEnd-blockStart;
+		System.out.println("Time for the first block:" + Timer1/1000 + "sec");
 		
 		blockStart = System.currentTimeMillis();
 		test.block2();
-		blockEnd = System.currentTimeMillis();		
-		System.out.println("Time for the second block:" + (blockEnd-blockStart)/1000 + "sec");
-
+		blockEnd = System.currentTimeMillis();
+		long Timer2 = blockEnd - blockStart;
+		System.out.println("Time for the second block:" + Timer2/1000 + "sec");
+		
+		System.out.println("Total Time:" + (Timer1+Timer2)/1000 + "sec");
+		
+		String message1 = "";
+		String message2 = "";
+		String hash = toHex(test.A0) + toHex(test.B0) + toHex(test.C0) + toHex(test.D0);
+		for(int i = 0; i < 32; i++) {
+			if (i < 16) {
+				message1 += "0x" + toHex((test.x[i])) + "\t";
+				message2 += "0x" + toHex((test.Hx[i])) + "\t";
+			}
+			else {
+				message1 += "0x" + toHex((test.xx[i-16])) + "\t";
+				message2 += "0x" + toHex((test.Hxx[i-16])) + "\t";
+			}
+			if ((i+1)%4 == 0) {
+				message1 += "\r\n";
+				message2 += "\r\n";
+			}
+		}
+		
+		System.out.println("\n----------------------Collision Found!----------------------\n");
+		
+		System.out.println("M1:\n" + message1);
+		System.out.println("M2:\n" + message2);
+		System.out.println("Hash:\n" + hash);
+		
 	}
 	
 }
