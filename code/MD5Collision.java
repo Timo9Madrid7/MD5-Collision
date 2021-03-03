@@ -1,10 +1,11 @@
+import java.util.Scanner;
 
 public class MD5Collision {
 //	Initial IV[0] IV[-1] IV[-2] IV[-3]
-	private final int A = 0x67452301;
-	private final int B = 0xefcdab89;
-	private final int C = 0x98badcfe;
-	private final int D = 0x10325476;
+	public int A = 0x67452301;
+	public int B = 0xefcdab89;
+	public int C = 0x98badcfe;
+	public int D = 0x10325476;
 	
 //	Additional Constant K
 	private final int K[] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
@@ -1541,7 +1542,30 @@ public class MD5Collision {
 		
 		MD5Collision test = new MD5Collision();
 		
-		test.X = 1234;
+		Scanner scanner = new Scanner(System.in);
+		char IV_flag;
+		
+		System.out.print("Do you want to change the initial IHV? [y/n]: ");
+		IV_flag = scanner.next().charAt(0);
+		if (IV_flag == 'y') {
+			System.out.print("Input a new initial IV_0: ");
+			test.A = scanner.nextInt();
+			System.out.print("Input a new initial IV_1: ");
+			test.B = scanner.nextInt();
+			System.out.print("Input a new initial IV_2: ");
+			test.C = scanner.nextInt();
+			System.out.print("Input a new initial IV_3: ");
+			test.D = scanner.nextInt();
+		}
+		else {
+			System.out.print("It will use the default IHVs: ");
+			System.out.print(Integer.toHexString(test.A) + " " + Integer.toHexString(test.B) + " " + Integer.toHexString(test.C) + " " + Integer.toHexString(test.D));
+		}
+		
+		System.out.println();
+		System.out.print("Input an integer as the random seed: ");
+		test.X = scanner.nextInt();
+		System.out.println();
 		
 		long blockStart = System.currentTimeMillis();
 		test.block1();
