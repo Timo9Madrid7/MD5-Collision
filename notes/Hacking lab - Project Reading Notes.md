@@ -1,9 +1,8 @@
 # Hacking lab - Project Reading Notes
-> notes retrieved from [PhD-Thesis-Marc-Stevens-Attacks-on-Hash-Functions-and-Applications.pdf](https://www.cwi.nl/system/files/PhD-Thesis-Marc-Stevens-Attacks-on-Hash-Functions-and-Applications.pdf)
+> notes retrieved from [PhD-Thesis-Marc-Stevens-Attacks-on-Hash-Functions-and-Applications.pdf](https://www.cwi.nl/system/files/PhD-Thesis-Marc-Stevens-Attacks-on-Hash-Functions-and-Applications.pdf) and [Tunnels in Hash Functions: MD5 Collisions Within a Minute](https://eprint.iacr.org/2006/105.pdf)
 
-## Introduction
 
-### Hash functions
+## Preliminary
 - *one-way functions*: A one-way function maps a huge (possibly infinite) domain (e.g., of all possible messages) to some (possibly infinite) range (e.g., all bit strings of length 256)
 - the usage of Hash: Signing a large message directly with a public-key crypto system is slow and leads to a signature as large as the message. Reducing a large message to a small hash using a hash function and signing the hash is a lot faster and leads to small fixed-size signatures
 - Finding a *collision*: Finding two different documents M and M′ that have the same hash. Since if either M or M′ is signed, then the corresponding signature is also valid for the other document, resulting in a successful forgery.
@@ -14,9 +13,12 @@
 - Big Endian vs. Little Endian Word: 
     - Big Endian: $(b_{31}, ..., b_{0})$
     - Little Endian: $(b_7b_6 ... b_1b_0 b_{15}b_{14} ... b_9b_8 b_{23}b_{22} ... b_{17}b_{16} b_{31}b_{30} ... b_{25}b_{24})$
+
+
+## MD5
 - MD5 Overview:
     - the structure of "Step Function of MD5’s Compression Function"
-    ![MD5_oneStep.png](https://raw.githubusercontent.com/Timo9Madrid7/MD5_Collision/TimoMD5/images/MD5_oneStep.png)
+    ![MD5_oneStep.png](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/MD5Compress.png)
     - Padding: Pad the message: first append a ‘1’-bit, next append the least number of ‘0’-bits to make the resulting bit length equivalent to 448 modulo 512, and finally append the bit length of the original unpadded message M as a 64-bit **little-endian integer**. **if the original messaage is 448 bits length mod 512, it is also necessary to pad **.
     - Partitioning: Partition the padded message Mc into N consecutive 512-bit blocks
     - Processing: The general process is shown in the above diagram.
@@ -61,31 +63,40 @@
     - Output: The resulting hash value is the last intermediate hash value, expressed as the concatenation of the hexadecimal byte strings of the four words, converted back from their little-endian representation.
 
 
+## Frist attemp to MD5 collision.
+![Differential Path](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/differentialPath.png)
+
+- the initial IHV can be the default IVH of MD5,
+    ```java=
+    int a0 = 0x67452301
+    int b0 = 0xefcdab89
+    int c0 = 0x98badcfe
+    int d0 = 0x10325476
+    ```
+    or it can also be the intermidiate $IHV_{inter}$ of any messages.
+
+- Block 1 and Block 2 are two consecutive blocks constituting a differential path, while another differential path consists of two successive Block 1* and Block 2*  
+
+- The structures of four blocks are identical. 
+- The initial input IHVs of two differential paths are identical: $IVH_{in} = IVH_{in}^*$.
+- The outputs of two differential paths are identical: $IVH_{out}^{'} = IVH_{out}^{*'}$, which means that the collision has been found.
+
+- A 512-bit $m_1$ and another 512-bit $m_2$ constitute a 1024-bit $M$. Similarly, a 512-bit $n_1$ and another 512-bit $n_2$ constitute a 1024-bit $N$. Since $m_1\neq m_2$ and $m_2\neq n_2$, definitely, $M$ is different from $N$.
+
+- Basing the assumption that $M$ and $N$ are found, try to image that you have a message composed by $L_1,L_2,L_3,...,L_N$ and insert $M$ and $N$ to any but the same posistions, then you will get as many collisions as you can. For instance, the hash output of $L_1,L_2,L_3,...,L_K,M,L_N$ is unanimous to the hash output of $L_1,L_2,L_3,...,L_K,N,L_N$.
+
+- The target of the differential path is to find two 1024 messages $M$ and $N$ which have the identical digest after passing two consecutive blocks.
+
+## The way to find $M$ and $N$
+In Wang's paper, the differential definition is a kind of precise differential which uses the difference in term of integer modular subtraction. For each block, she provided two tables, one for showing the difference between the result from different paths and another one for presenting the restrictions which makes that block produce the corresponding results.
+
+- **Block 1**
+![Block 1 results](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/wang_diff_results1.png =325x600) ![Block 1 constraints](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/wang_diff_restrictions1.png =325x600)
+
+- **Block 2**
+![Block 1 results](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/wang_diff_results2.png =325x600) ![Block 1 constraints](https://raw.githubusercontent.com/Timo9Madrid7/MD5-Collision/TimoMD5/images/wang_diff_restrictions2.png =325x600)
+
+## More sufficient conditions
 
 
-### MD5 collision attack by Wang et al.
 
-
-
-
-
-
-## Contributions
-
-
-### Our contributions
-
-
-### Chosen-prefix collision abuse scenarios
-
-
-### Differential cryptanalysis and paths
-
-
-### MD5
-
-
-### Detecting collision attacks
-
-
-## Appendices
