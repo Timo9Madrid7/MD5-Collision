@@ -85,13 +85,8 @@ static int ok, i, start_over, changed, ctr;
 
 word m[16], m1[16];
 
-#if defined(_WIN32) || defined(__INTEL_COMPILER)
-#define rot _lrotl
-#define rotr _lrotr
-#else
 #define rot(x, s) (((x)<<(s))^((x)>>(32-(s))))
 #define rotr(x, s) (((x)<<(32-(s)))^((x)>>(s)))
-#endif
 
 #define F(u, v, w) ((w) ^ ((u) & ((v) ^ (w))))
 #define G(u, v, w) ((v) ^ ((w) & ((u) ^ (v))))
@@ -102,12 +97,18 @@ word m[16], m1[16];
 #define bitsequal(x, n, y) (((~(x)^(y))>>n)&1)
 #define random_word() (random()) // mrand48()
 
-double current_time_micros() {
-    /* returns current time in microseconds */
-    struct timeval curtime;
-    gettimeofday(&curtime, 0);
-    return ((double)curtime.tv_sec) * 1000000 +
-        ((double)curtime.tv_usec);
+//double current_time_micros() {
+//    /* returns current time in microseconds */
+//    struct timeval curtime;
+//    gettimeofday(&curtime, 0);
+//    return ((double)curtime.tv_sec) * 1000000 +
+//        ((double)curtime.tv_usec);
+//}
+
+int X;
+int random_word() {
+    X = (1103515245 * X + 12345) & 0xffffffff;
+    return X;
 }
 
 // FIRST BLOCK:
@@ -118,7 +119,7 @@ inline void search1() {
     do {
         ok = 0;
 
-        Q[3] = mrand48();
+        Q[3] = random_word();
         Q[3] &= 0xfff7f7bf;
 
         Q[4] = random_word(); // bit 32 = 0
@@ -132,7 +133,7 @@ inline void search1() {
         Q[5] ^= (Q[4] ^ Q[5]) & 0x80000000;
         if (!(rotr(Q[5] - Q[4], 7) >> 31)) continue; // T_4
 
-        Q[6] = mrand48();
+        Q[6] = random_word();
         Q[6] &= 0xf77fbc5b;
         Q[6] |= 0x827fbc41; // 32 = 1
         Q[6] ^= (Q[5] ^ Q[6]) & 0x7500001a;
@@ -203,7 +204,7 @@ inline void search1() {
             m[13] = rotr(Q[14] - Q[13], 12) -
                 F(Q[13], Q[12], Q[11]) - Q[10] - t13;
 
-            Q[15] = mrand48();
+            Q[15] = random_word();
             Q[15] &= 0xfdfffff7; // Removed 31 = 0
             Q[15] |= 0x21008000;
             T = rotr(Q[15] - Q[14], 17); // T_14
@@ -418,7 +419,7 @@ inline void search1() {
                 ((ivc ^ ivd) & 0x80000000))
                 continue;
 
-            printf("."); fflush(stdout);
+            printf(".");
 
             Q[64] = Q[63] +
                 rot(Q[60] + I(Q[63], Q[62], Q[61]) + t63 + m[9], 21);
@@ -851,7 +852,7 @@ inline void checkrest() {
         if (!(Q[62] & 0x2000000) || ((Q[62] ^ Q[60]) & 0x80000000))
             continue;
 
-        printf(":"); fflush(stdout);
+        printf(":");
         Q[63] = Q[62] +
             rot(Q[59] + I(Q[62], Q[61], Q[60]) + t62 + m[2], 15);
         if ((Q[63] ^ Q[61]) & 0x80000000) continue;
@@ -883,79 +884,11 @@ inline void search2() {
 }
 
 int main(int argc, char* argv[]) {
-    int j;
-    double t, tfirst, tsecond;
-    FILE* fp1;
-    srandom(time(0));
-    srand48(time(0));
-
-    t = current_time_micros();
-    search1(); // Find first block
-    tfirst = current_time_micros() - t;
-    for (j = 0; j < 16; j++) m1[j] = m[j];
-
-    search2(); // Find second block
-    t = current_time_micros() - t;
-    tsecond = t - tfirst;
-
-    printf("Collision found in %.2f minutes\n", t / 1e6 / 60);
-    printf("Time of first block  : %.2f minutes\n",
-        tfirst / 1e6 / 60);
-    printf("Time of second block : %.2f minutes\n",
-        tsecond / 1e6 / 60);
-    printf("NOTE: Since not all conditions are checked,\n");
-    printf("this might in fact NOT be a true collision.\n");
-    printf("Please verify...\n\n");
-    printf("First block:\n");
-    for (j = 0; j < 16; j++)
-        printf("m[%d] = 0x%08lx;\n", j, m1[j]);
-    printf("\nThe colliding message has m[4]+2^31, m[11]+2^15,\n");
-    printf("m[14]+2^31\n\n");
-    printf("Second block:\n");
-    for (j = 0; j < 16; j++)
-        printf("m[%d] = 0x%08lx;\n", j, m[j]);
-    printf("\nThe colliding message has m[4]+2^31, m[11]-2^15,\n");
-    printf("m[14]+2^31\n\n");
-    printf("The two messages have been saved as msg1.txt\n");
-    printf("and msg2.txt. To verify on a UNIX-like system,\n");
-    printf("use 'md5sum msg1.txt msg2.txt'.\n\n");
-
-    fp1 = fopen("msg1.txt", "w");
-    for (j = 0; j < 16; j++) {
-        fprintf(fp1, "%c", (char)(m1[j] & 0xff));
-        fprintf(fp1, "%c", (char)((m1[j] >> 8) & 0xff));
-        fprintf(fp1, "%c", (char)((m1[j] >> 16) & 0xff));
-        fprintf(fp1, "%c", (char)(m1[j] >> 24));
-    }
-    for (j = 0; j < 16; j++) {
-        fprintf(fp1, "%c", (char)(m[j] & 0xff));
-        fprintf(fp1, "%c", (char)((m[j] >> 8) & 0xff));
-        fprintf(fp1, "%c", (char)((m[j] >> 16) & 0xff));
-        fprintf(fp1, "%c", (char)(m[j] >> 24));
-    }
-    fclose(fp1);
-
-    m1[4] += 0x80000000;
-    m1[11] += 0x8000;
-    m1[14] += 0x80000000;
-    m[4] += 0x80000000;
-    m[11] -= 0x8000;
-    m[14] += 0x80000000;
-
-    fp1 = fopen("msg2.txt", "w");
-    for (j = 0; j < 16; j++) {
-        fprintf(fp1, "%c", (char)(m1[j] & 0xff));
-        fprintf(fp1, "%c", (char)((m1[j] >> 8) & 0xff));
-        fprintf(fp1, "%c", (char)((m1[j] >> 16) & 0xff));
-        fprintf(fp1, "%c", (char)(m1[j] >> 24));
-    }
-    for (j = 0; j < 16; j++) {
-        fprintf(fp1, "%c", (char)(m[j] & 0xff));
-        fprintf(fp1, "%c", (char)((m[j] >> 8) & 0xff));
-        fprintf(fp1, "%c", (char)((m[j] >> 16) & 0xff));
-        fprintf(fp1, "%c", (char)(m[j] >> 24));
-    }
-    fclose(fp1);
-
-    return 0;
+    X = 777;
+    printf("block 1 starts\r\n");
+    search1();
+    printf("block 1 ends\r\n");
+    printf("block 2 starts\r\n");
+    search2();
+    printf("block 2 ends\r\n");
 }
