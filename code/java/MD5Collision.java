@@ -693,8 +693,8 @@ public class MD5Collision {
 	private int[] xx = new int[16]; // message 1 consists of 16 words for block2
 	private int[] Hx = new int[16]; // message 2 consists of 16 words for block1
 	private int[] Hxx = new int[16]; // message 2 consists of 16 words for block2
-	private int A0, B0, C0, D0; // Intermediate hash values of the block1 for message 1
-	private int A1, B1, C1, D1; // Intermediate hash values of the block1 for message 2
+	private int A0, B0, C0, D0; // Intermediate hash values of block1 for message 1
+	private int A1, B1, C1, D1; // Intermediate hash values of block1 for message 2
 
 	private int block1() {
 		int QM3 = A, QM0 = B, QM1 = C, QM2 = D;
@@ -1590,7 +1590,9 @@ public class MD5Collision {
 		System.out.print("Input an integer as the random seed: ");
 		test.X = scanner.nextInt();
 		System.out.println();
-
+		
+		scanner.close();
+		
 		long blockStart = System.currentTimeMillis();
 		test.block1();
 		long blockEnd = System.currentTimeMillis();
