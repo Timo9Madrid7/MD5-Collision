@@ -91,10 +91,10 @@
 In Wang's paper, the differential definition is a kind of precise differential which uses the difference in term of integer modular subtraction. For each block, she provided two tables, one for showing the difference between the result from different paths and another one for presenting the restrictions which makes that block produce the corresponding results.
 
 - **Block 1**
-![Block 1 results](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/wang_diff_results1.png =325x600) ![Block 1 constraints](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/wang_diff_restrictions1.png =325x600)
+![Block 1 results](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/diff_condition.png =325x600) ![Block 1 constraints](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/bit_condition.png =325x600)
 
 - **Block 2**
-![Block 1 results](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/wang_diff_results2.png =325x600) ![Block 1 constraints](https://raw.githubusercontent.com/Timo9Madrid7/MD5-Collision/TimoMD5/images/wang_diff_restrictions2.png =325x600)
+![Block 1 results](https://github.com/Timo9Madrid7/MD5-Collision/raw/TimoMD5/images/diff_condition2.png =325x600) ![Block 1 constraints](https://raw.githubusercontent.com/Timo9Madrid7/MD5-Collision/TimoMD5/images/bit_condition2.png =325x600)
 
 ## More sufficient conditions
 
