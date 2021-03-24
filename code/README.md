@@ -5,7 +5,7 @@
         * DTU_Thomsen_MD5Col.cpp contains the source code
         * DTU_Thomsen_MD5Col.sln can be opened by Visual Studio
     * Fast_MD5Col
-    *The original idea if provided by Dr. Vlastimil Klima, and his website is [Vlastimil Klíma](https://cryptography.hyperlink.cz/).
+    *The original idea if provided by Dr. Vlastimil Klima, and his website is [Vlastimil Klíma](https://cryptography.hyperlink.cz/).*
         * MD5Col.cpp contains the source code
         * MD5Col.sln can be opened by Visual Studio
 * java
