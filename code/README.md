@@ -1,10 +1,10 @@
 ## Code Structure
 * cpp
-    * DTU_Thomsen_MD5Col
+    * DTU_Thomsen_MD5Col  
     *The original idea is provided by Dr. Søren Steffen Thomsen, and his website is [MD5 collision finder](http://www2.mat.dtu.dk/people/oldusers/S.Thomsen/wangmd5/). He uses C code to build the collision finder.*
         * DTU_Thomsen_MD5Col.cpp contains the source code
         * DTU_Thomsen_MD5Col.sln can be opened by Visual Studio
-    * Fast_MD5Col
+    * Fast_MD5Col  
     *The original idea if provided by Dr. Vlastimil Klima, and his website is [Vlastimil Klíma](https://cryptography.hyperlink.cz/).*
         * MD5Col.cpp contains the source code
         * MD5Col.sln can be opened by Visual Studio
