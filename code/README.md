@@ -12,7 +12,7 @@
     * jar
         * MD5-Collider.jar is the java application of MD5Collision.java
         * MD5-Generator.jar is the java application of MD5Encryption.java
-        * Wang-Collider.jar is the java apllication of WangCol.java
+        * Wang-Collider.jar is the java application of WangCol.java
     * MD5Collision.java is based on Klíma's scheme with tunnels
     * MD5Encryption.java is the forward computation of the MD5 message-digest algorithm
     * WangCol.java is based on Wang's scheme using the multi-message modification
