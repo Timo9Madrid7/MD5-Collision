@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class MD5 {
 
@@ -131,8 +132,17 @@ public class MD5 {
 	
 	public static void main(String[] args) {
 		MD5 test = new MD5();
-		System.out.println(test.getMD5("TU Delft")); // 467764e7f10c77695db73ab3d414c65d
+		String result;
 		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Please input a <string> m: ");
+		System.out.print("m = ");
+		result = scanner.nextLine();
+		scanner.close();
+//		System.out.println(test.getMD5("TU Delft")); // 467764e7f10c77695db73ab3d414c65d
+		
+		System.out.println("MD5(m) = " + test.getMD5(result));
+	
 	}
 	
 }
